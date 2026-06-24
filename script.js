@@ -1,11 +1,15 @@
-// Existing interactivity: click on images
+// ==============================
+// Wedding Boat Race Interactivity
+// ==============================
+
+// Event images click effect
 document.querySelectorAll('.event-images img').forEach(img => {
     img.addEventListener('click', () => {
-        alert("សូមអញ្ជើញរីករាយជាមួយពិធីប្រណាំងអ៊ុំទូក!");
+        alert("🎉 សូមអញ្ជើញរីករាយជាមួយពិធីប្រណាំងអ៊ុំទូក ក្នុងឱកាសសិរីមង្គលអាពាហ៍ពិពាហ៍ 🎉");
     });
 });
 
-// List of boats
+// Boat List
 const boats = [
     "ទូកវត្តព្រះប្រសប់",
     "ទូកវត្តស្វាយជ្រំ",
@@ -30,31 +34,60 @@ const boats = [
     "ទូកង ហួកាំង ថារ៉ា (ភោជនីយដ្ឋាន ផ្កាយ ៥ ហួ កាំង សាខាអូរស្មាច់ ខេត្តឧត្តមានជ័យ)"
 ];
 
-// Create container
-const boatListContainer = document.createElement('section');
-boatListContainer.className = 'boat-list';
+// Create Section
+const boatSection = document.createElement('section');
+boatSection.className = 'boat-list';
 
-// Title
-const title = document.createElement('h3');
-title.textContent = `បញ្ជីទូកប្រណាំង (${boats.length} ទូក)`;
-boatListContainer.appendChild(title);
+// Heading
+const heading = document.createElement('h3');
+heading.innerHTML = `🚣 បញ្ជីទូកប្រណាំង <span>(${boats.length} ទូក)</span>`;
+boatSection.appendChild(heading);
 
-// List
+// Description
+const description = document.createElement('p');
+description.textContent =
+    'សូមស្វាគមន៍ក្រុមទូកទាំងអស់ដែលបានចូលរួមក្នុងកម្មវិធីប្រណាំងអ៊ុំទូក ដើម្បីអបអរសាទរពិធីសិរីមង្គលអាពាហ៍ពិពាហ៍។';
+boatSection.appendChild(description);
+
+// Create List
 const ul = document.createElement('ul');
 
-boats.forEach((name, index) => {
+boats.forEach((boat, index) => {
     const li = document.createElement('li');
-    li.textContent = `${index + 1}. ${name}`;
+
+    li.innerHTML = `
+        <span class="boat-number">${index + 1}</span>
+        <span class="boat-name">${boat}</span>
+    `;
+
+    // Highlight special wedding boat
+    if (boat.includes('ហួកាំង ថារ៉ា')) {
+        li.classList.add('special-boat');
+    }
+
+    // Click interaction
+    li.addEventListener('click', () => {
+        alert(`🚣‍♂️ ${boat}\n\nសូមជូនពរឲ្យទទួលបានជ័យជម្នះ!`);
+    });
+
     ul.appendChild(li);
 });
 
-boatListContainer.appendChild(ul);
+boatSection.appendChild(ul);
 
-// Append to main content
+// Summary
+const summary = document.createElement('div');
+summary.className = 'boat-summary';
+summary.innerHTML = `
+    <strong>ចំនួនទូកសរុប៖ ${boats.length} ទូក</strong>
+`;
+boatSection.appendChild(summary);
+
+// Add to page
 const main = document.querySelector('main');
 
 if (main) {
-    main.appendChild(boatListContainer);
+    main.appendChild(boatSection);
 } else {
     console.error('Main element not found.');
 }
