@@ -66,3 +66,29 @@ footer {
     padding: 10px;
     margin-top: 30px;
 }
+
+.boat-list {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.boat-list h3 {
+    color: #c62828;
+    margin-bottom: 15px;
+}
+
+.boat-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.boat-list li {
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    background: #fff;
+    border-left: 4px solid #c62828;
+    border-radius: 4px;
+}
