@@ -1,10 +1,10 @@
 // ===================================================
-// Wedding Background Music Interactivity (script2js)
+// Wedding Background Music Interactivity (script2.js)
 // ===================================================
 
 /**
  * Audio Engine Configuration
- * Uses a single public romantic/ambient classical track suitable for traditional setups
+ * Uses the local wedding audio asset path
  */
 const weddingAudioSrc = "music.mp3";
 
@@ -16,7 +16,7 @@ weddingAudio.volume = 0.4; // Set elegant ambient volume threshold (40%)
 // Create Floating Audio Control Interface Button
 const audioBtn = document.createElement('button');
 audioBtn.id = 'weddingAudioToggleBtn';
-audioBtn.innerHTML = '🎵 ဖွင့်តន្ត្រី'; // Initial Native Khmer Button Prompt Label
+audioBtn.innerHTML = '🎵 តន្ត្រី'; // Initial Native Khmer Button Prompt Label
 
 // Apply inline layout styling to cleanly position the controller on screen
 Object.assign(audioBtn.style, {
@@ -26,7 +26,7 @@ Object.assign(audioBtn.style, {
     zIndex: '1000',
     backgroundColor: '#800020', // Matches your --ceremony-red theme signature
     color: '#ffffff',
-    border: '2px solid #c5a059', // Matches your --heritage-gold accent accent line
+    border: '2px solid #c5a059', // Matches your --heritage-gold accent line
     borderRadius: '50px',
     padding: '10px 18px',
     fontFamily: "'Hanuman', serif",
@@ -60,12 +60,14 @@ function toggleWeddingMusic() {
                 audioBtn.style.borderColor = '#800020';
             })
             .catch(error => {
-                console.log("Autoplay was blocked by browser policies. Interaction required.", error);
-                alert("សូមចុចម្តងទៀត ដើម្បីរីករាយជាមួយតន្ត្រីបកអមមង្គលការ!");
+                console.log("Autoplay context restricted by browser security policies.", error);
+                // Graceful fallback: silently keep the button state ready instead of alerting
+                audioBtn.innerHTML = '🎵 តន្ត្រី';
+                audioBtn.style.borderColor = '#c5a059';
             });
     } else {
         weddingAudio.pause();
-        audioBtn.innerHTML = '🎵 ဖွင့်តន្ត្រី'; // Revert back to "Play Music"
+        audioBtn.innerHTML = '🎵 តន្ត្រី'; // Revert back to "Play Music"
         audioBtn.style.borderColor = '#c5a059';
     }
 }
@@ -77,12 +79,21 @@ audioBtn.addEventListener('click', toggleWeddingMusic);
 document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(audioBtn);
     
-    // Optional: Attempt subtle background trigger logic immediately upon viewport interactions
-    document.body.addEventListener('click', () => {
-        // Automatically kicks in background ambient track if audio engine is fresh/unstarted
-        if (weddingAudio.paused && audioBtn.innerHTML === '🎵 ဖွင့်តន្ត្រី') {
-            // Un-comment the line below if you want the track to force-start on user's very first click anywhere on the screen:
-            // toggleWeddingMusic();
+    // User Interaction Trigger: Attempts to start music smoothly upon the first real window interaction
+    const initiateAutoplay = () => {
+        if (weddingAudio.paused && audioBtn.innerHTML === '🎵 តន្ត្រី') {
+            weddingAudio.play()
+                .then(() => {
+                    audioBtn.innerHTML = '🔇 បិទតន្ត្រី';
+                    audioBtn.style.borderColor = '#800020';
+                })
+                .catch(() => {
+                    // Safe catch if browser still enforces restriction until direct button click
+                    console.log("Ambient autoplay deferred to explicit user toggle.");
+                });
         }
-    }, { once: true }); // Executes exactly once to respect native browser sandbox policies safely
+    };
+
+    // Listen to first click across the layout to unlock the web audio sandbox profile cleanly
+    document.body.addEventListener('click', initiateAutoplay, { once: true });
 });
