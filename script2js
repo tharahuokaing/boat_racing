@@ -6,7 +6,7 @@
  * Audio Engine Configuration
  * Uses a single public romantic/ambient classical track suitable for traditional setups
  */
-const weddingAudioSrc = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+const weddingAudioSrc = "music.mp3";
 
 // Create HTMLAudioElement instance
 const weddingAudio = new Audio(weddingAudioSrc);
