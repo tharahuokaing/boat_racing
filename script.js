@@ -1,6 +1,6 @@
-// ==============================================
+// ==============================
 // Wedding Boat Race Interactivity
-// ==============================================
+// ==============================
 
 // Event images click effect
 document.querySelectorAll('.event-images img').forEach(img => {
@@ -45,7 +45,8 @@ boatSection.appendChild(heading);
 
 // Description
 const description = document.createElement('p');
-description.textContent = 'សូមស្វាគមន៍ក្រុមទូកទាំងអស់ដែលបានចូលរួមក្នុងកម្មវិធីប្រណាំងអ៊ុំទូក ដើម្បីអបអរសាទរពិធីសិរីមង្គលអាពាហ៍ពិពាហ៍។';
+description.textContent =
+    'សូមស្វាគមន៍ក្រុមទូកទាំងអស់ដែលបានចូលរួមក្នុងកម្មវិធីប្រណាំងអ៊ុំទូក ដើម្បីអបអរសាទរពិធីសិរីមង្គលអាពាហ៍ពិពាហ៍។';
 boatSection.appendChild(description);
 
 // Create List
@@ -60,25 +61,19 @@ boats.forEach((boat, index) => {
     `;
 
     // Highlight special wedding boat
-    const isSpecialBoat = boat.includes('ហួកាំង ថារ៉ា');
-    if (isSpecialBoat) {
+    if (boat.includes('ហួកាំង ថារ៉ា')) {
         li.classList.add('special-boat');
-        // Optional inline style to make sure it stands out visually immediately
-        li.style.border = "2px solid #c5a059";
-        li.style.background = "rgba(128, 0, 32, 0.08)";
-        li.style.cursor = "pointer";
-    }
-
-    // Click interaction
-    li.addEventListener('click', () => {
-        if (isSpecialBoat) {
-            // Show the custom image overlay for the special boat
-            showBoatImageModal(boat);
-        } else {
-            // Standard alert for all other traditional boats
+        
+        // Custom interactive click to show boat1.png image modal
+        li.addEventListener('click', () => {
+            showBoatImageModal('boat1.png', boat);
+        });
+    } else {
+        // Standard click interaction for all other boats
+        li.addEventListener('click', () => {
             alert(`🚣‍♂️ ${boat}\n\nសូមជូនពរឲ្យទទួលបានជ័យជម្នះ!`);
-        }
-    });
+        });
+    }
 
     ul.appendChild(li);
 });
@@ -88,113 +83,87 @@ boatSection.appendChild(ul);
 // Summary
 const summary = document.createElement('div');
 summary.className = 'boat-summary';
-summary.innerHTML = `<strong>ចំនួនទូកសរុប៖ ${boats.length} ទូក</strong>`;
+summary.innerHTML = `
+    <strong>ចំនួនទូកសរុប៖ ${boats.length} ទូក</strong>
+`;
 boatSection.appendChild(summary);
 
 // Add to page
-const mainElement = document.querySelector('main') || document.querySelector('.invitation-container');
-if (mainElement) {
-    mainElement.appendChild(boatSection);
+const main = document.querySelector('main') || document.querySelector('.invitation-container');
+
+if (main) {
+    main.appendChild(boatSection);
 } else {
-    console.error('Main container layout element not found.');
+    console.error('Main element not found.');
 }
 
 /**
- * Creates and displays a sleek, modern image modal modal overlay 
- * when the user clicks on the custom wedding boat.
+ * Creates and displays a sleek modal popup displaying the requested boat image
+ * @param {string} src - The image filename/URLpath 
+ * @param {string} titleText - The header text or description overlay
  */
-function showBoatImageModal(boatName) {
-    // Prevent duplicate overlays if clicked multiple times
-    if (document.getElementById('boatModalOverlay')) return;
-
-    // 1. Create Overlay Background Window
+function showBoatImageModal(src, titleText) {
+    // Create background backdrop overlay
     const overlay = document.createElement('div');
-    overlay.id = 'boatModalOverlay';
-    Object.assign(overlay.style, {
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: '10000',
-        padding: '20px',
-        boxSizing: 'border-box'
-    });
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        cursor: zoom-out;
+        padding: 20px;
+        box-sizing: border-box;
+    `;
 
-    // 2. Create Image Display Container Card
-    const card = document.createElement('div');
-    Object.assign(card.style, {
-        backgroundColor: '#fffdf9',
-        border: '3px solid #c5a059',
-        borderRadius: '8px',
-        padding: '20px',
-        maxWidth: '550px',
-        width: '100%',
-        textAlign: 'center',
-        position: 'relative',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
-    });
+    // Wrapper for clean framing layout
+    const modalWrapper = document.createElement('div');
+    modalWrapper.style.cssText = `
+        max-width: 90%;
+        max-height: 80%;
+        position: relative;
+        text-align: center;
+    `;
 
-    // Close button (Top-Right Corner)
-    const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '&times;';
-    Object.assign(closeBtn.style, {
-        position: 'absolute',
-        top: '10px',
-        right: '15px',
-        background: 'none',
-        border: 'none',
-        fontSize: '2rem',
-        color: '#800020',
-        cursor: 'pointer',
-        lineHeight: '1'
-    });
-    closeBtn.onclick = () => overlay.remove();
-
-    // Text Heading Inside Card
-    const textTitle = document.createElement('h4');
-    textTitle.style.cssText = "font-family: 'Moul', serif; color: #800020; margin: 0 0 15px 0; font-size: 0.95rem; line-height: 1.5;";
-    textTitle.textContent = boatName;
-
-    // 3. Image Element Loading the Custom Source Domain Directly
+    // The boat image element
     const img = document.createElement('img');
-    img.src = "boat1"; 
-    Object.assign(img.style, {
-        width: '100%',
-        height: 'auto',
-        maxHeight: '65vh',
-        borderRadius: '4px',
-        border: '1px solid rgba(197, 160, 89, 0.3)',
-        objectFit: 'contain',
-        marginBottom: '15px'
-    });
-    
-    // Safety handling for empty/broken domains to fallback gracefully
-    img.onerror = () => {
-        img.src = "boat1.png";
-    };
+    img.src = src;
+    img.alt = titleText;
+    img.style.cssText = `
+        max-width: 100%;
+        max-height: 70vh;
+        border: 3px solid #c5a059;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    `;
 
-    // Blessing Footer text inside modal
-    const footerText = document.createElement('p');
-    footerText.style.cssText = "font-family: 'Hanuman', serif; font-weight: bold; color: #c5a059; margin: 5px 0 0 0; font-size: 0.95rem;";
-    footerText.textContent = "🚣‍♂️ សូមជូនពរឲ្យទទួលបានជ័យជម្នះ និងមហាសិរីសួស្តី! 🏆";
+    // Text Label below the image
+    const label = document.createElement('p');
+    label.style.cssText = `
+        font-family: 'Hanuman', serif;
+        color: #fffdf9;
+        font-weight: bold;
+        margin-top: 15px;
+        font-size: 1rem;
+        line-height: 1.5;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    `;
+    label.innerHTML = `🏆 ${titleText}<br><span style="color:#c5a059; font-size:0.85rem;">(សូមចុចកន្លែងណាក៏បានដើម្បីបិទវិញ)</span>`;
 
-    // Assemble components
-    card.appendChild(closeBtn);
-    card.appendChild(textTitle);
-    card.appendChild(img);
-    card.appendChild(footerText);
-    overlay.appendChild(card);
-
-    // Dismiss overlay on clicking anywhere outside the card background area
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) overlay.remove();
-    });
-
+    // Build hierarchy and append to document
+    modalWrapper.appendChild(img);
+    modalWrapper.appendChild(label);
+    overlay.appendChild(modalWrapper);
     document.body.appendChild(overlay);
+
+    // Dismiss modal cleanly upon any click
+    overlay.addEventListener('click', () => {
+        overlay.remove();
+    });
 }
