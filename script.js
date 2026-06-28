@@ -1,4 +1,4 @@
-// ==============================
+here// ==============================
 // Wedding Boat Race Interactivity
 // ==============================
 
@@ -90,4 +90,4 @@ if (main) {
     main.appendChild(boatSection);
 } else {
     console.error('Main element not found.');
-}
+    }
