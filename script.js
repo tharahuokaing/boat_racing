@@ -163,7 +163,7 @@ function showBoatImageModal(boatName) {
 
     // 3. Image Element Loading the Custom Source Domain Directly
     const img = document.createElement('img');
-    img.src = "https://tharahuokaing.github.io"; 
+    img.src = "boat1"; 
     Object.assign(img.style, {
         width: '100%',
         height: 'auto',
