@@ -1,4 +1,4 @@
-here// ==============================
+// ==============================
 // Wedding Boat Race Interactivity
 // ==============================
 
@@ -28,7 +28,7 @@ const boats = [
     "ទូកង ព្រែកដាច់មានបារមី : វត្តព្រែកដាច់",
     "ទូកង រកាខ្ពស់សែនជ័យ : វត្តរកាខ្ពស់",
     "ទូកង តាខ្មៅរុងរឿងជ័យ : វត្តតាខ្មៅ",
-    "ទូកង សិត្បូសែនជ័យ : វត្តសិត្បូ",
+    "ទូកង សิต្បូសែនជ័យ : វត្តសិត្បូ",
     "ទូកង ព្រែកហូរមហាជ័យ : វត្តព្រែកហូរ",
     "ទូកង មហានិគ្រោធតេជោសែនជ័យ : វត្តមហានិគ្រោធ",
     "ទូកង ហួកាំង ថារ៉ា  : (ភោជនីយដ្ឋាន ផ្កាយ ៥ ហួ កាំង សាខាអូរស្មាច់ ខេត្តឧត្តមានជ័យ)"
@@ -60,15 +60,21 @@ boats.forEach((boat, index) => {
         <span class="boat-name">${boat}</span>
     `;
 
-    // Highlight special wedding boat
+    // Highlight special wedding boat and update behavior
     if (boat.includes('ហួកាំង ថារ៉ា')) {
         li.classList.add('special-boat');
-    }
+        li.style.cursor = 'pointer';
 
-    // Click interaction
-    li.addEventListener('click', () => {
-        alert(`🚣‍♂️ ${boat}\n\nសូមជូនពរឲ្យទទួលបានជ័យជម្នះ!`);
-    });
+        // Custom Click Action for the Special Wedding Boat
+        li.addEventListener('click', () => {
+            window.open('https://tharahuokaing.github.io', '_blank');
+        });
+    } else {
+        // Default Click Action for all other entry lines
+        li.addEventListener('click', () => {
+            alert(`🚣‍♂️ ${boat}\n\nសូមជូនពរឲ្យទទួលបានជ័យជម្នះ!`);
+        });
+    }
 
     ul.appendChild(li);
 });
@@ -84,7 +90,7 @@ summary.innerHTML = `
 boatSection.appendChild(summary);
 
 // Add to page
-const main = document.querySelector('main');
+const main = document.querySelector('main') || document.querySelector('.invitation-container');
 
 if (main) {
     main.appendChild(boatSection);
