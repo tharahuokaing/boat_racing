@@ -30,7 +30,7 @@ const boats = [
 // ២. ទិន្នន័យគ្រឿងឧបកិច្ច ផែនការចាត់តាំង និងការប្រកួត
 const raceLogistics = {
     ferries: { count: 10, purpose: "សម្រាប់ទទួលកីឡាករចូលរួមប្រណាំង ពិសាភោជនាហារ (Racer Dining Ferries)", image: "https://i.ytimg.com/vi/v75fvzvI0JQ/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGFQgXShlMA8=&rs=AOn4CLB5T5vYEymxlZHCy8W-4k6ca_u_8A" },
-    vipCruiser: { name: "កប៉ាល់ធំជូនពរ (Grand Blessing Cruise)", purpose: "សម្រាប់ទទួលភ្ញៀវកិត្តិយសពិសាភោជនាហារ និងទស្សនាការប្រណាំងទូក", image: "https://image.freshnewsasia.com/2020/id-154/fn-2020-02-14-11-43-11-0.jpg" },
+    vipCruiser: { name: "កប៉ាល់ធំជូនពរ (Grand Blessing Cruise) 02 កប៉ាល់", purpose: "សម្រាប់ទទួលភ្ញៀវកិត្តិយសពិសាភោជនាហារ និងទស្សនាការប្រណាំងទូក", image: "https://image.freshnewsasia.com/2020/id-154/fn-2020-02-14-11-43-11-0.jpg" },
     safetyUnits: { count: 50, role: "Life Guards សម្រាប់សង្គ្រោះបន្ទាន់លើផ្ទៃទឹក (Water Rescue Professionals)", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTimMGzZETksy-J9OREb2mRs4eCNpaUIPvZcLnJu--Y-d4OI9qd&s" },
     rounds: [
         { id: 1, title: "ជើងទី ១ (Round 01 - Qualifying Heat)", setup: "កងព័ទ្ធទីមួយ ការពារមុខផ្ទះខាងស្រី | កងព័ទ្ធទីពីរ (កងព័ទ្ធស្គរជ័យ) ស្ថិតនៅមុខផ្ទះខាងប្រុស។" },
