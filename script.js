@@ -176,7 +176,7 @@ function showBoatImageModal(boatName) {
     
     // Safety handling for empty/broken domains to fallback gracefully
     img.onerror = () => {
-        img.src = "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80";
+        img.src = "boat1.png";
     };
 
     // Blessing Footer text inside modal
